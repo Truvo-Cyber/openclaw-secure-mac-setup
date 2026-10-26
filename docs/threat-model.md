@@ -38,13 +38,16 @@ A test from the Mac itself proves nothing: traffic to the Mac's own address neve
 
 ## Top risks and mitigations
 
-| Risk | Mitigation |
-|---|---|
-| Prompt injection through content the agent reads | Messaging-only tools, no web access, no business data yet. Add data sources one at a time with read-only credentials, and keep web access and private data in separate agents |
-| Token theft from the VM | Narrow scopes, every credential revocable at the source in minutes, no inbound path to the VM except host SSH |
-| Runaway spend | Enforced spend cap on Vertex AI. Confirm the cap covers every model the agent can reach, including Marketplace-billed models |
-| Agent gains a code-execution tool through a plugin, config drift or a new default | Explicit tool deny list, code mode off, and a tool-list check in a fresh session after every OpenClaw update |
-| Unreviewed plugins | Set `plugins.allow` and pin plugin installs to exact versions (both flagged by `openclaw security audit`) |
+OWASP mapping uses the [OWASP Top 10 for Agentic Applications 2026](https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026) (ASI) and the [OWASP Top 10 for LLM Applications 2025](https://genai.owasp.org/llm-top-10/) (LLM).
+
+| Risk | OWASP mapping | Mitigation |
+|---|---|---|
+| Prompt injection through content the agent reads | ASI01 Agent Goal Hijack, LLM01 Prompt Injection | Messaging-only tools, no web access, no business data yet. Add data sources one at a time with read-only credentials, and keep web access and private data in separate agents |
+| Token theft from the VM | ASI03 Identity and Privilege Abuse, LLM02 Sensitive Information Disclosure | Narrow scopes, every credential revocable at the source in minutes, no inbound path to the VM except host SSH |
+| Runaway spend | LLM10 Unbounded Consumption | Enforced spend cap on Vertex AI. Confirm the cap covers every model the agent can reach, including Marketplace-billed models |
+| Agent gains a code-execution tool through a plugin, config drift or a new default | ASI05 Unexpected Code Execution (RCE), LLM06 Excessive Agency | Explicit tool deny list, code mode off, and a tool-list check in a fresh session after every OpenClaw update |
+| Unreviewed plugins or skills | ASI04 Agentic Supply Chain Vulnerabilities, LLM03 Supply Chain | No third-party skills. Set `plugins.allow` and pin plugin installs to exact versions (both flagged by `openclaw security audit`) |
+| Gateway or VM screen reachable from the network | No direct OWASP entry (infrastructure exposure) | Loopback gateway, discovery off, host firewall with the VM manager blocked, key-only SSH from the host. Verify from a second device |
 
 ## Before giving the agent a shell
 
