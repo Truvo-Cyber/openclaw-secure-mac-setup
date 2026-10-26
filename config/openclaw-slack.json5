@@ -1,0 +1,24 @@
+// OpenClaw 2026.10.7: DM-only Slack account with tokens from the protected secret store.
+// Store the tokens first, inside the VM, typed at the prompt (never pasted into chat):
+//   openclaw secrets store set SLACK_BRIEF_BOT_TOKEN --kind secret
+//   openclaw secrets store set SLACK_BRIEF_APP_TOKEN --kind secret
+{
+  channels: {
+    slack: {
+      enabled: true,
+      mode: "socket",
+      dmPolicy: "allowlist",
+      allowFrom: ["<YOUR_SLACK_MEMBER_ID>"],
+      groupPolicy: "disabled",
+      dm: { groupEnabled: false },
+      accounts: {
+        brief: {
+          name: "OpenClaw Brief",
+          appToken: { source: "store", provider: "default", id: "SLACK_BRIEF_APP_TOKEN" },
+          botToken: { source: "store", provider: "default", id: "SLACK_BRIEF_BOT_TOKEN" },
+        },
+      },
+    },
+  },
+  bindings: [{ agentId: "brief", match: { channel: "slack", accountId: "brief" } }],
+}

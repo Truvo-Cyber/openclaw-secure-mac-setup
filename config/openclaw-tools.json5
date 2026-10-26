@@ -1,0 +1,12 @@
+// OpenClaw 2026.10.7: messaging-only agent. Apply with your usual config method.
+// Verify afterwards in a FRESH session that the agent sees messaging and session tools only.
+{
+  agents: { defaults: { model: { primary: "google-vertex/gemini-3.1-flash-lite" } } },
+  tools: {
+    profile: "messaging",
+    deny: ["group:runtime", "group:fs", "group:web", "group:ui", "group:nodes",
+           "group:automation", "sessions_spawn", "subagents"],
+    // Without this, the "auto" code mode default can add an exec tool for some models.
+    codeMode: { enabled: false },
+  },
+}

@@ -1,0 +1,6 @@
+// OpenClaw 2026.10.7: keep the gateway local and stop network discovery.
+{
+  gateway: { mode: "local", bind: "loopback", auth: { mode: "token" } }, // port 18789 by default
+  plugins: { entries: { bonjour: { enabled: false } } },
+  discovery: { mdns: { mode: "off" } },
+}
