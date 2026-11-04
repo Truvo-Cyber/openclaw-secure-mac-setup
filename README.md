@@ -47,4 +47,4 @@ Provided as-is for learning and reference. Review each setting against your own 
 
 ## Maintainer
 
-Maintained by Ali Aleali, CISSP, CCSP, Truvo Cyber. Issues and suggestions are welcome.
+Maintained by Ali Aleali, CISSP, CCSP, Truvo Cyber. Issues and suggestions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for what a good issue or pull request looks like and [SECURITY.md](SECURITY.md) for reporting problems.
